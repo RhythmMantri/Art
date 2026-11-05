@@ -12,19 +12,6 @@ A 7-page static website that:
 
 It is **not** a booking engine. The website's job ends where the conversation begins (WhatsApp or phone).
 
-## Before you write any code
-
-**Read all files in `specs/` in order, before writing any code:**
-
-1. `specs/01-architecture.md` — Stack, folder structure, components
-2. `specs/02-content-schema.md` — Zod schemas and content examples
-3. `specs/03-business-rules.md` — 31 business rules and 7 build gates
-4. `specs/04-pages-copy.md` — Page-by-page specs and final copy
-5. `specs/05-deployment.md` — Cloudflare Pages setup
-6. `specs/06-content-guide.md` — How the owner edits content
-
-Each spec is authoritative. When in doubt, the spec wins.
-
 ## Quick start
 
 ```bash
