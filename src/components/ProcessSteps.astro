@@ -1,0 +1,211 @@
+---
+interface Props {
+  heading?: string;
+  subheading?: string;
+  class?: string;
+}
+
+const {
+  heading = 'Simple 3-Step Process',
+  subheading = '',
+  class: className = '',
+} = Astro.props;
+
+const steps = [
+  {
+    step: '1',
+    title: 'Enquire',
+    description: 'Enquire on WhatsApp or call to share your occasion and date.',
+  },
+  {
+    step: '2',
+    title: 'Date Confirmed',
+    description: 'We confirm your date and timing on call or WhatsApp.',
+  },
+  {
+    step: '3',
+    title: 'Arrival at Venue',
+    description: 'We arrive at your venue with fresh, hand-mixed natural henna cones.',
+  },
+];
+---
+
+<section class={`process-section ${className}`.trim()} aria-label="Booking Process">
+  {heading && (
+    <div class="process-header">
+      <h2 class="process-title">
+        <span class="heading-pill">{heading}</span>
+      </h2>
+      {subheading && <p class="process-subheading">{subheading}</p>}
+    </div>
+  )}
+
+  <div class="steps-grid">
+    {steps.map((item) => (
+      <div class="step-card" tabindex="0">
+        <div class="step-main">
+          <div class="step-badge-wrap">
+            <span class="step-badge" aria-hidden="true">{item.step}</span>
+          </div>
+          <h3 class="step-title">{item.title}</h3>
+        </div>
+        <p class="step-desc">{item.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .process-section {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .process-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto var(--space-md) auto;
+  }
+
+  .process-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+    line-height: 1.25;
+  }
+
+  .process-subheading {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-muted);
+    margin-top: var(--space-xs);
+  }
+
+  /* Mobile-first base styles: 1-column */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .step-card {
+    background-color: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: 18px;
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    cursor: pointer;
+    min-height: 116px;
+  }
+
+  .step-card:hover,
+  .step-card:focus,
+  .step-card:focus-visible {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(184, 134, 11, 0.16);
+  }
+
+  .step-main {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .step-badge-wrap {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    transition: transform 0.35s ease;
+  }
+
+  .step-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.12), rgba(184, 134, 11, 0.04));
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(184, 134, 11, 0.08);
+    transition: transform 0.35s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .step-card:hover .step-badge,
+  .step-card:focus .step-badge,
+  .step-card:focus-visible .step-badge {
+    transform: scale(1.08);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+  }
+
+  .step-title {
+    font-family: var(--font-heading);
+    font-size: 1.32rem;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+    transition: color 0.3s ease;
+  }
+
+  .step-card:hover .step-title,
+  .step-card:focus .step-title,
+  .step-card:focus-visible .step-title {
+    color: var(--color-primary);
+  }
+
+  .step-desc {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(6px);
+    transition: max-height 0.4s ease, opacity 0.35s ease, transform 0.35s ease, margin-top 0.3s ease;
+  }
+
+  .step-card:hover .step-desc,
+  .step-card:focus .step-desc,
+  .step-card:focus-visible .step-desc {
+    max-height: 180px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: var(--space-xs);
+    padding-top: var(--space-xs);
+    border-top: 1px dashed rgba(184, 134, 11, 0.25);
+  }
+
+  /* Progressive enhancement: 3 columns on tablet and desktop */
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process-section {
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-lg);
+    }
+  }
+</style>

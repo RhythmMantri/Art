@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+---
+
+<BaseLayout
+  title="Mehendi Design Gallery | Bridal, Festive & Arabic Art"
+  description="Explore handcrafted mehendi designs by Shagun in Kota: bridal patterns, festive mandalas, Arabic vines, and intricate figure and portrait motifs."
+>
+  <div class="container section">
+    <SectionHeading
+      title="Gallery"
+    />
+
+    <!-- Interactive Filterable Gallery Grid -->
+    <div class="gallery-wrapper">
+      <GalleryGrid showFilter={true} />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .gallery-wrapper {
+    margin-bottom: var(--space-xl);
+  }
+</style>
+

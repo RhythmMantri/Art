@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+---
+
+<BaseLayout
+  title="Mehendi Services & Indicative Rates"
+  description="Explore mehendi services by Shagun in Kota: bridal packages, engagement mehendi, festival rates, and home service options."
+>
+  <div class="container section">
+    <SectionHeading
+      title="Services"
+    />
+
+    <!-- All 5 Service Cards in Order -->
+    <div class="services-list-wrapper">
+      <ServiceCards />
+    </div>
+
+    <!-- Transparency Advisory (Shifted After Cards) -->
+    <div class="pricing-transparency-banner">
+      <div class="transparency-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+      </div>
+      <p class="transparency-text">
+        <strong>Indicative price:</strong> Rates listed above are transparent starting points. Final quotes depend on design intricacy, forearm/feet coverage, and occasion timing. We confirm all details directly on WhatsApp.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pricing-transparency-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm);
+    max-width: 800px;
+    margin: var(--space-md) auto;
+  }
+
+  .transparency-icon {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .transparency-text {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .transparency-text strong {
+    color: var(--color-text);
+  }
+
+  .services-list-wrapper {
+    margin-bottom: var(--space-md);
+  }
+</style>
+

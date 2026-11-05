@@ -1,0 +1,210 @@
+---
+import { site } from '../config/site';
+import ContactBar from './ContactBar.astro';
+import { ROUTES } from '../lib/constants';
+
+const hasRealInstagram = site.instagram && !site.instagram.includes('dummy');
+const hasGbp = Boolean(site.gbpUrl);
+---
+
+<footer class="site-footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href={ROUTES.home} class="footer-logo">
+          <img
+            src="/logo.jpg"
+            alt="Shagun Mehendi luxury gold emblem"
+            class="footer-emblem"
+            width="36"
+            height="36"
+          />
+          <span>SHAGUN</span>
+        </a>
+        <p class="footer-location">{site.travelNote}</p>
+        <p class="footer-city">Serving brides and families across Kota, Rajasthan.</p>
+      </div>
+
+      <div class="footer-contact-wrap">
+        <h3 class="footer-heading">Get in Touch</h3>
+        <ContactBar context="general" />
+        {hasRealInstagram && (
+          <p class="footer-social">
+            <a
+              href={`https://instagram.com/${site.instagram}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              Instagram @{site.instagram}
+            </a>
+          </p>
+        )}
+        {hasGbp && (
+          <p class="footer-gbp">
+            <a
+              href={site.gbpUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              Google Business Profile
+            </a>
+          </p>
+        )}
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">© Shagun. All rights reserved.</p>
+      <p class="footer-note">Hand-crafted natural mehendi artistry in Kota, Rajasthan.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-md);
+    margin-top: auto;
+  }
+
+  @media (max-width: 767px) {
+    .site-footer {
+      padding-bottom: calc(var(--space-md) + 72px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  /* Mobile-first base styles */
+  .footer-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .footer-brand {
+    max-width: 480px;
+  }
+
+  .footer-logo {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    text-decoration: none;
+  }
+
+  .footer-emblem {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: var(--radius-full);
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .footer-location {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+  }
+
+  .footer-city {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    margin-bottom: 0;
+  }
+
+  .footer-contact-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .footer-heading {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+    margin-bottom: var(--space-xs);
+    font-weight: 600;
+  }
+
+  .footer-social, .footer-gbp {
+    margin-top: var(--space-xs);
+    margin-bottom: 0;
+  }
+
+  .social-link {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    touch-action: manipulation;
+  }
+
+  .social-link:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-top: 1px solid var(--color-border-light);
+    padding-top: var(--space-sm);
+    gap: var(--space-xs);
+  }
+
+  .copyright, .footer-note {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  /* Progressive enhancement: multi-column on tablet & desktop */
+  @media (min-width: 768px) {
+    .footer-top {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .footer-contact-wrap {
+      width: auto;
+    }
+
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+    }
+  }
+</style>

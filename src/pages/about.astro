@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import { getPhoneLink } from '../lib/deeplink';
+import { site } from '../config/site';
+
+const phoneLink = getPhoneLink();
+---
+
+<BaseLayout
+  title="About Shagun | 30 Years of Mehendi Artistry in Kota"
+  description="Learn about Shagun, premier mehendi company in Kota with 30 years of experience crafting pure natural mehendi designs for brides and families since 2006."
+>
+  <div class="container section">
+    <SectionHeading
+      title="About Shagun"
+    />
+
+    <div class="about-story-container">
+      <!-- Section 1: The Beginning & Journey (Text Left, Image Right) -->
+      <section class="story-block story-block--journey" aria-label="Our Story & Heritage">
+        <div class="story-text-col">
+          <h2 class="story-heading">Welcome to Shagun</h2>
+          <p class="story-lead">
+            At Shagun, we bring <strong>30 years</strong> of rich mehendi tradition to every bridal and festive celebration. Founded by our lead master artist, who began practising at her native place before making Kota our creative home, our team has served brides and families <strong>since 2006</strong>.
+          </p>
+          <p class="story-p">
+            Every pattern is drawn freehand with steady symmetry and deep reverence for Rajasthani henna traditions. We use 100% pure organic Sojat henna cones with zero chemical black henna, zero PPD, and zero synthetic dyes, ensuring skin-safe nourishment and rich, long-lasting mahogany stains.
+          </p>
+          <p class="story-p">
+            For clients seeking swift stain readiness, we also offer our natural instant formula, and traditional ceremonial alta is available on request.
+          </p>
+        </div>
+
+        <div class="story-visual-col">
+          <div class="illustration-card">
+            <img
+              src="/about-bride-journey.jpg"
+              alt="Boutique illustration of an Indian bride displaying handcrafted mehendi lotus patterns on hands"
+              width="560"
+              height="560"
+              loading="eager"
+              class="story-illustration"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: A Collective of Artisans (Image Left, Text Right) -->
+      <section class="story-block story-block--artisans" aria-label="Our Artisans">
+        <div class="story-visual-col story-visual--reverse">
+          <div class="illustration-card">
+            <img
+              src="/about-artisans-jharokha.jpg"
+              alt="Boutique illustration of Rajasthani artisans applying henna in palace jharokha window courtyard"
+              width="560"
+              height="560"
+              loading="lazy"
+              class="story-illustration"
+            />
+          </div>
+        </div>
+
+        <div class="story-text-col">
+          <h2 class="story-heading">A Collective of Artisans</h2>
+          <p class="story-lead">
+            Behind Shagun's signature weddings is our devoted circle of passionate henna artisans, personally mentored to deliver flawless freehand symmetry and delicate bridal motifs.
+          </p>
+          <p class="story-p">
+            From intricate Dulha-Dulhan portraiture and royal palace jharokha arches to swift, graceful festival coverage for family and guests, our artisans combine deep craftsmanship with warm, punctual hospitality.
+          </p>
+          <p class="story-p">
+            Based in Kota, today, we serve brides and families across Kota for bridal, festival, group and home-service bookings — and are available for outstation weddings on request.
+          </p>
+
+          <!-- Contact Strip -->
+          <div class="about-contact-strip">
+            <div class="contact-card">
+              <span class="contact-label">Call Directly</span>
+              <a href={phoneLink} class="contact-val">
+                {site.phoneE164}
+              </a>
+            </div>
+            <div class="contact-cta">
+              <WhatsAppButton
+                context="general"
+                label="Book"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- The Shagun Difference: 5 Trust Value Pillars -->
+    <div class="about-pillars-wrap">
+      <WhyChooseUs />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-story-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin-top: var(--space-md);
+  }
+
+  .story-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .story-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 2.5vw + 0.5rem, 2.4rem);
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+    line-height: 1.25;
+  }
+
+  .story-lead {
+    font-family: var(--font-body);
+    font-size: 1.08rem;
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+  }
+
+  .story-lead strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .story-p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-muted);
+    line-height: 1.65;
+    margin-bottom: var(--space-sm);
+  }
+
+  .story-visual-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .illustration-card {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    max-width: 500px;
+    width: 100%;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .illustration-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow: 0 16px 36px rgba(184, 134, 11, 0.16);
+  }
+
+  .story-illustration {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Contact Strip */
+  .about-contact-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-md);
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .contact-label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+  }
+
+  .contact-val {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .contact-val:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .about-pillars-wrap {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-md);
+    border-top: 1px dashed rgba(184, 134, 11, 0.25);
+  }
+
+  /* Progressive Enhancement for Tablets & Desktops */
+  @media (min-width: 768px) {
+    .story-block {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-xl);
+    }
+
+    .story-block--artisans {
+      grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .story-visual--reverse {
+      order: 1;
+    }
+
+    .story-block--artisans .story-text-col {
+      order: 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .about-story-container {
+      gap: 4.5rem;
+    }
+
+    .story-block {
+      gap: 3.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+import { ROUTES } from '../lib/constants';
+
+interface Props {
+  class?: string;
+  id?: string;
+}
+
+const { class: className = '', id } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navItems = [
+  { href: ROUTES.home, label: 'Home' },
+  { href: ROUTES.services, label: 'Services' },
+  { href: ROUTES.bridal, label: 'Bridal' },
+  { href: ROUTES.gallery, label: 'Gallery' },
+  { href: ROUTES.about, label: 'About' },
+  { href: ROUTES.contact, label: 'Contact' },
+];
+---
+
+<nav class={`site-nav ${className}`.trim()} id={id} aria-label="Main Navigation">
+  <ul class="nav-list">
+    {navItems.map((item) => {
+      const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+      return (
+        <li class="nav-item">
+          <a
+            href={item.href}
+            class={`nav-link ${isActive ? 'nav-link--active' : ''}`.trim()}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</nav>
+
+<style>
+  .site-nav {
+    display: flex;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+
+  .nav-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    padding: var(--space-xs) 0;
+    position: relative;
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  .nav-link--active {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .nav-link--active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+  }
+</style>
+

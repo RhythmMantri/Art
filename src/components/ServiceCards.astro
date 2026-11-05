@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import ServiceCard from './ServiceCard.astro';
+
+interface Props {
+  limit?: number;
+  featuredOnly?: boolean;
+}
+
+const { limit, featuredOnly = false } = Astro.props;
+
+let services = await getCollection('services');
+services.sort((a, b) => a.data.order - b.data.order);
+
+if (featuredOnly) {
+  services = services.filter((s) => s.data.featured);
+}
+
+if (limit) {
+  services = services.slice(0, limit);
+}
+---
+
+<div class="service-cards-grid">
+  {services.map((service) => (
+    <ServiceCard
+      name={service.data.name}
+      order={service.data.order}
+      badges={service.data.badges}
+      inclusions={service.data.inclusions}
+      priceLabel={service.data.priceLabel}
+      negotiationNote={service.data.negotiationNote}
+      waContext={service.data.waContext}
+      slug={service.data.waContext}
+      featured={service.data.featured}
+    />
+  ))}
+</div>
+
+<style>
+  /* Mobile-first: 1 column on mobile, zero overflow risk */
+  .service-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  /* Progressive enhancement: multi-column on tablet and desktop */
+  @media (min-width: 680px) {
+    .service-cards-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+</style>
+

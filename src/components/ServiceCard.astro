@@ -1,0 +1,186 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import type { MessageContext } from '../lib/deeplink';
+
+interface Props {
+  name: string;
+  order: number;
+  badges: string[];
+  inclusions: string[];
+  priceLabel: string;
+  negotiationNote?: string;
+  waContext: MessageContext;
+  slug: string;
+  featured?: boolean;
+}
+
+const {
+  name,
+  order,
+  badges,
+  inclusions,
+  priceLabel,
+  negotiationNote = "Indicative price — final quote depends on complexity, date, and coverage. Shared on WhatsApp.",
+  waContext,
+  slug,
+  featured = false,
+} = Astro.props;
+
+const isBridal = slug === 'bridal';
+const hasNumericPrice = /₹/.test(priceLabel);
+---
+
+<article
+  class={`service-card ${isBridal ? 'service-card--bridal' : ''} ${featured ? 'service-card--featured' : ''}`.trim()}
+  data-service={slug}
+  data-order={order}
+  data-price-label={priceLabel}
+  id={slug}
+>
+  <div class="card-header">
+    <div class="badge-list">
+      {badges.map((badge) => {
+        const label = badge.replace(/\s*\([^)]*\)/g, '').trim();
+        return <span class="badge">{label}</span>;
+      })}
+      {isBridal && <span class="badge badge--highlight">Signature</span>}
+    </div>
+    <h3 class="card-title">{name}</h3>
+  </div>
+
+  <div class="card-body">
+    <ul class="inclusions-list">
+      {inclusions.map((item) => (
+        <li class="inclusion-item">
+          <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="card-pricing">
+    <div class="price-display">
+      <span class="price-amount">{priceLabel}</span>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <WhatsAppButton
+      context={waContext}
+      label="Book"
+      class="card-cta"
+    />
+  </div>
+</article>
+
+<style>
+  .service-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .service-card:hover {
+    border-color: var(--color-maroon);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-card--bridal {
+    border-color: var(--color-maroon);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-maroon-light) 100%);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-card--bridal .card-title {
+    color: var(--color-maroon);
+  }
+
+  .card-header {
+    margin-bottom: var(--space-sm);
+  }
+
+  .badge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  .badge--highlight {
+    background-color: var(--color-maroon);
+    color: var(--color-white);
+    border-color: var(--color-maroon);
+  }
+
+  .card-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    margin-bottom: var(--space-sm);
+  }
+
+  .inclusions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .inclusion-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.45;
+  }
+
+  .check-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-top: 3px;
+  }
+
+  .card-pricing {
+    border-top: 1px solid var(--color-border-light);
+    padding-top: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .price-display {
+    margin-bottom: var(--space-xs);
+  }
+
+  .price-amount {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--color-text);
+  }
+
+  .card-footer {
+    margin-top: auto;
+  }
+
+  :global(.card-cta) {
+    width: 100%;
+    text-align: center;
+  }
+</style>
+

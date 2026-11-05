@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#FAF8F5"/>
+  <rect x="15" y="15" width="370" height="370" rx="4" fill="none" stroke="#E5E0D8" stroke-width="1"/>
+  <circle cx="200" cy="200" r="120" stroke="#C8A97E" stroke-width="1.5" stroke-dasharray="4,4" fill="none" opacity="0.6"/>
+  <circle cx="200" cy="200" r="80" stroke="#A88B60" stroke-width="1.5" fill="none"/>
+  <circle cx="200" cy="200" r="40" stroke="#C8A97E" stroke-width="1" fill="#F9F6F0"/>
+  <circle cx="200" cy="200" r="12" fill="#C8A97E"/>
+  <text x="200" y="340" text-anchor="middle" font-family="'Playfair Display', serif" font-size="14" font-weight="600" fill="#2C2C2C" letter-spacing="2">SHAGUN MEHENDI</text>
+  <text x="200" y="360" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" font-weight="500" fill="#6B6B6B" letter-spacing="1">HANDCRAFTED PATTERN</text>
+</svg>
+

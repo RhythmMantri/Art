@@ -1,0 +1,299 @@
+---
+import { buildWhatsAppLink, getPhoneLink } from '../lib/deeplink';
+import { site } from '../config/site';
+
+const phoneLink = getPhoneLink();
+const waLink = buildWhatsAppLink('general');
+const mapLink = site.gbpUrl || 'https://maps.google.com/?q=Kota,+Rajasthan';
+const igLink = site.instagram && !site.instagram.includes('dummy')
+  ? `https://instagram.com/${site.instagram}`
+  : 'https://instagram.com/';
+---
+
+<aside class="floating-contact-widget" id="floating-contact-widget" aria-label="Quick Contact Menu">
+  <!-- Speed Dial Buttons List -->
+  <div class="fab-actions-stack" id="fab-actions-stack">
+    <!-- 1. Phone Call -->
+    <a
+      href={phoneLink}
+      class="fab-item fab-call"
+      aria-label={`Call us directly at ${site.phoneE164}`}
+      title="Call Directly"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+      <span class="fab-tooltip">Call Now</span>
+    </a>
+
+    <!-- 2. WhatsApp -->
+    <a
+      href={waLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fab-item fab-wa"
+      aria-label="Enquire on WhatsApp"
+      title="WhatsApp Enquiry"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+      </svg>
+      <span class="fab-tooltip">WhatsApp</span>
+    </a>
+
+    <!-- 3. Location / Kota Map -->
+    <a
+      href={mapLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fab-item fab-location"
+      aria-label="View Location in Kota, Rajasthan"
+      title="Kota, Rajasthan"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span class="fab-tooltip">Kota, Rajasthan</span>
+    </a>
+
+    <!-- 4. Instagram -->
+    <a
+      href={igLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fab-item fab-instagram"
+      aria-label="Follow Shagun on Instagram"
+      title="Instagram Profile"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+      </svg>
+      <span class="fab-tooltip">Instagram</span>
+    </a>
+  </div>
+
+  <!-- 5. Toggle Button with Hide/Show Tooltip -->
+  <div class="fab-toggle-wrap">
+    <span class="fab-hide-pill" id="fab-toggle-label">Hide</span>
+    <button
+      type="button"
+      id="fab-toggle-btn"
+      class="fab-item fab-toggle"
+      aria-expanded="true"
+      aria-controls="fab-actions-stack"
+      aria-label="Hide contact options"
+    >
+      <!-- Close / Cross icon -->
+      <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+
+      <!-- Message / Chat icon (shown when collapsed) -->
+      <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </button>
+  </div>
+</aside>
+
+<script>
+  function setupFloatingContact() {
+    const widget = document.getElementById('floating-contact-widget');
+    const toggleBtn = document.getElementById('fab-toggle-btn');
+    const toggleLabel = document.getElementById('fab-toggle-label');
+
+    if (!widget || !toggleBtn || !toggleLabel) return;
+
+    toggleBtn.addEventListener('click', () => {
+      const isCollapsed = widget.classList.toggle('is-collapsed');
+      toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+      toggleBtn.setAttribute('aria-label', isCollapsed ? 'Show contact options' : 'Hide contact options');
+      toggleLabel.textContent = isCollapsed ? 'Contact' : 'Hide';
+    });
+  }
+
+  setupFloatingContact();
+  document.addEventListener('astro:page-load', setupFloatingContact);
+</script>
+
+<style>
+  .floating-contact-widget {
+    position: fixed;
+    right: 16px;
+    bottom: 24px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    pointer-events: none;
+  }
+
+  @media (max-width: 767px) {
+    .floating-contact-widget {
+      display: none !important;
+    }
+  }
+
+  .floating-contact-widget * {
+    pointer-events: auto;
+  }
+
+  .fab-actions-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: opacity var(--transition-normal), transform var(--transition-normal), visibility var(--transition-normal);
+    transform-origin: bottom center;
+  }
+
+  /* Collapsed state */
+  .floating-contact-widget.is-collapsed .fab-actions-stack {
+    opacity: 0;
+    transform: translateY(20px) scale(0.85);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .floating-contact-widget.is-collapsed .icon-close {
+    display: none;
+  }
+
+  .floating-contact-widget.is-collapsed .icon-open {
+    display: block;
+  }
+
+  .floating-contact-widget .icon-open {
+    display: none;
+  }
+
+  .floating-contact-widget .icon-close {
+    display: block;
+  }
+
+  /* Common circular FAB item styling */
+  .fab-item {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    touch-action: manipulation;
+    position: relative;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+  }
+
+  .fab-item:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  }
+
+  /* 1. Phone Button: Vibrant Call Green */
+  .fab-call {
+    background: #00D87E;
+  }
+
+  /* 2. WhatsApp Button: Official WhatsApp Green */
+  .fab-wa {
+    background: #25D366;
+  }
+
+  /* 3. Location Button: Emerald Green */
+  .fab-location {
+    background: #2E9E64;
+  }
+
+  /* 4. Instagram Button: Signature Sunset Gradient */
+  .fab-instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  }
+
+  /* 5. Toggle Button: Mint / Olive Accent */
+  .fab-toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fab-toggle {
+    background: #6EB982;
+    color: #ffffff;
+  }
+
+  .fab-hide-pill {
+    background: #E8E2D2;
+    color: #382E2E;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    user-select: none;
+  }
+
+  .fab-hide-pill::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid #E8E2D2;
+  }
+
+  /* Hover tooltips for desktop */
+  .fab-tooltip {
+    position: absolute;
+    right: 58px;
+    background: rgba(34, 26, 26, 0.9);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(6px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .fab-item:hover .fab-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 640px) {
+    .floating-contact-widget {
+      right: 12px;
+      bottom: 16px;
+    }
+    .fab-item {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    .fab-tooltip {
+      display: none;
+    }
+  }
+</style>
+

@@ -1,0 +1,214 @@
+---
+interface ValuePillar {
+  emblem: string;
+  title: string;
+  description: string;
+}
+
+const pillars: ValuePillar[] = [
+  {
+    emblem: '/emblems/on-time-service.jpg',
+    title: 'On-Time Service',
+    description: 'We value your wedding timeline. We arrive punctually at your venue or home anywhere across Kota with fresh cones ready.',
+  },
+  {
+    emblem: '/emblems/experienced-artists.jpg',
+    title: 'Experienced Artists',
+    description: 'Decades of dedicated mastery in bridal and festive henna artistry, delivering flawless symmetry, rich dark stains, and steady freehand precision.',
+  },
+  {
+    emblem: '/emblems/customized-designs.jpg',
+    title: 'Customized Designs',
+    description: 'From intricate Dulha-Dulhan and Radha-Krishna figures to personal wedding dates and vows, drawn freehand with fine symmetry.',
+  },
+  {
+    emblem: '/emblems/transparent-rates.jpg',
+    title: 'Transparent Rates',
+    description: 'Clear, honest starting packages with no hidden extras. Final quotes discussed and confirmed directly on WhatsApp.',
+  },
+  {
+    emblem: '/emblems/aftercare-guidance.jpg',
+    title: 'Complete Aftercare Guidance',
+    description: 'Personalized instructions on lemon-sugar sealant, clove-steam warming, and oil protection to achieve the deepest bridal color.',
+  },
+];
+---
+
+<section class="why-us-section" aria-label="Why Choose Shagun">
+  <div class="why-us-header">
+    <h2 class="why-us-title">
+      <span class="heading-pill">Why Choose Us</span>
+    </h2>
+  </div>
+
+  <div class="pillars-grid">
+    {pillars.map((pillar) => (
+      <div class="pillar-card" tabindex="0">
+        <div class="pillar-main">
+          <div class="pillar-emblem-wrap">
+            <img
+              src={pillar.emblem}
+              alt={`${pillar.title} emblem`}
+              class="pillar-emblem-img"
+              width="84"
+              height="84"
+              loading="lazy"
+            />
+          </div>
+          <h3 class="pillar-title">{pillar.title}</h3>
+        </div>
+        <p class="pillar-desc">{pillar.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Mobile-first base styles */
+  .why-us-section {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .why-us-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto var(--space-md) auto;
+  }
+
+  .why-us-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+    line-height: 1.25;
+  }
+
+  /* Mobile: 1-column */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .pillar-card {
+    background-color: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: 18px;
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    cursor: pointer;
+    min-height: 116px;
+  }
+
+  .pillar-card:hover,
+  .pillar-card:focus,
+  .pillar-card:focus-visible {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(184, 134, 11, 0.16);
+  }
+
+  .pillar-main {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .pillar-emblem-wrap {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    transition: transform 0.35s ease;
+  }
+
+  .pillar-emblem-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .pillar-card:hover .pillar-emblem-wrap,
+  .pillar-card:focus .pillar-emblem-wrap,
+  .pillar-card:focus-visible .pillar-emblem-wrap {
+    transform: scale(1.08);
+  }
+
+  .pillar-title {
+    font-family: var(--font-heading);
+    font-size: 1.32rem;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.25;
+    transition: color 0.3s ease;
+  }
+
+  .pillar-card:hover .pillar-title,
+  .pillar-card:focus .pillar-title,
+  .pillar-card:focus-visible .pillar-title {
+    color: var(--color-primary);
+  }
+
+  .pillar-desc {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(6px);
+    transition: max-height 0.4s ease, opacity 0.35s ease, transform 0.35s ease, margin-top 0.3s ease;
+  }
+
+  .pillar-card:hover .pillar-desc,
+  .pillar-card:focus .pillar-desc,
+  .pillar-card:focus-visible .pillar-desc {
+    max-height: 180px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: var(--space-xs);
+    padding-top: var(--space-xs);
+    border-top: 1px dashed rgba(184, 134, 11, 0.25);
+  }
+
+  /* Multi-column on tablet and desktop */
+  @media (min-width: 640px) {
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .why-us-section {
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-lg);
+    }
+
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+
+    .pillar-card:last-child {
+      grid-column: span 2;
+      max-width: 580px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+</style>
+

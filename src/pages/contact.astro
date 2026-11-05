@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import FAQList from '../components/FAQList.astro';
+import { site } from '../config/site';
+import { getPhoneLink } from '../lib/deeplink';
+
+const phoneLink = getPhoneLink();
+
+const contactFaqs = [
+  {
+    question: 'How to check availability for a specific date?',
+    answer: 'Message on WhatsApp or call with your date, location and occasion — we will confirm availability.',
+  },
+  {
+    question: 'Do you travel outside Kota?',
+    answer: 'Yes, on request. Travel arrangements are discussed on WhatsApp.',
+  },
+];
+---
+
+<BaseLayout
+  title="Contact Shagun | Mehendi Artist in Kota"
+  description="Get in touch with Shagun for bridal, festival, and event mehendi bookings in Kota and outstation venues. Call or message on WhatsApp."
+>
+  <div class="container section">
+    <SectionHeading
+      title="Get in touch"
+    />
+
+    <!-- Contact Cards Grid -->
+    <div class="contact-methods-grid">
+      <!-- Phone Card -->
+      <div class="contact-box">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </div>
+        <h3 class="box-title">Direct Phone Call</h3>
+        <p class="box-desc">Call for immediate queries, urgent festival inquiries, and wedding discussions.</p>
+        <a href={phoneLink} class="btn-outline">
+          Call
+        </a>
+      </div>
+
+      <!-- WhatsApp Card -->
+      <div class="contact-box contact-box--highlight">
+        <div class="icon-wrap icon-wrap--gold" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.59 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/>
+          </svg>
+        </div>
+        <h3 class="box-title">WhatsApp Booking</h3>
+        <p class="box-desc">Share reference designs, wedding dates, and guest estimates directly with our team.</p>
+        <WhatsAppButton context="general" label="Book" />
+      </div>
+    </div>
+
+    <!-- FAQs -->
+    <FAQList items={contactFaqs} title="Booking & Inquiry FAQs" />
+  </div>
+</BaseLayout>
+
+<style>
+  /* Mobile-first base styles */
+  .contact-methods-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .contact-box {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-box :global(.btn-gold),
+  .contact-box :global(.btn-outline) {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
+  .contact-box--highlight {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-light);
+  }
+
+  .icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .icon-wrap--gold {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .box-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .box-desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+    flex-grow: 1;
+  }
+
+
+
+  /* Progressive enhancement */
+  @media (min-width: 640px) {
+    .contact-methods-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-box :global(.btn-gold),
+    .contact-box :global(.btn-outline) {
+      width: auto;
+    }
+  }
+</style>
+

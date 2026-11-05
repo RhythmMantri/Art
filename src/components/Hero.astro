@@ -1,0 +1,301 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import { ROUTES } from '../lib/constants';
+
+interface Props {
+  headline?: string;
+  subline?: string;
+  class?: string;
+}
+
+const {
+  headline = 'Bridal & festival mehendi in Kota',
+  subline = '',
+  class: className = '',
+} = Astro.props;
+---
+
+<section class={`hero-section ${className}`.trim()} aria-label="Introduction">
+  <!-- 1. Full-Bleed Background Photography Layer -->
+  <div class="hero-bg-media" aria-hidden="true">
+    <img
+      src="/hero-bridal-bg.jpg"
+      alt="Intricate bridal mehendi artistry handcrafted by Shagun in Kota"
+      class="hero-bg-img"
+      loading="eager"
+      fetchpriority="high"
+      width="1920"
+      height="1080"
+    />
+  </div>
+
+  <!-- 2. Protective Gradient Overlay (Smooth Transition & High Contrast) -->
+  <div class="hero-bg-overlay" aria-hidden="true"></div>
+
+  <!-- 3. Foreground Content -->
+  <div class="container hero-container">
+    <div class="hero-content">
+      <h1 class="hero-headline">{headline}</h1>
+      {subline && <p class="hero-subline">{subline}</p>}
+
+      <div class="hero-actions">
+        <WhatsAppButton context="general" label="Book" />
+        <a href={ROUTES.gallery} class="btn-outline hero-btn-designs">
+          See Designs
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">30+</span>
+          <span class="stat-label">Years Crafting Mehendi</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-number">Kota</span>
+          <span class="stat-label">Based Since 2006</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Natural Bridal Mehendi</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <span class="stat-number">At Venue</span>
+          <span class="stat-label">Service Across Kota</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Atmosphere Badge (Desktop) -->
+    <div class="hero-atmosphere-badge" aria-hidden="true">
+      <span class="pulse-indicator"></span>
+      <span class="badge-text">Signature Bridal Artistry · Kota</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
+    overflow: hidden;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg);
+  }
+
+  /* Full-bleed background image */
+  .hero-bg-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 80% center;
+    transform: scale(1.02);
+  }
+
+  /* Protective Gradient Overlay */
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    /* Mobile-first: top-to-bottom fade protecting text */
+    background: linear-gradient(
+      180deg,
+      rgba(253, 251, 247, 0.96) 0%,
+      rgba(253, 251, 247, 0.92) 58%,
+      rgba(253, 251, 247, 0.6) 80%,
+      rgba(253, 251, 247, 0.25) 100%
+    );
+  }
+
+  /* Desktop: horizontal fade from left (opaque) to right (sheer) */
+  @media (min-width: 860px) {
+    .hero-bg-overlay {
+      background: linear-gradient(
+        90deg,
+        rgba(253, 251, 247, 0.98) 0%,
+        rgba(253, 251, 247, 0.95) 44%,
+        rgba(253, 251, 247, 0.72) 62%,
+        rgba(253, 251, 247, 0.22) 85%,
+        rgba(253, 251, 247, 0.08) 100%
+      );
+    }
+  }
+
+  /* Container & Content */
+  .hero-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-content {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .hero-headline {
+    font-family: var(--font-heading);
+    font-size: clamp(2.1rem, 6vw + 0.5rem, 3.6rem);
+    color: var(--color-text);
+    line-height: 1.15;
+    margin-bottom: var(--space-xs);
+    letter-spacing: -0.01em;
+  }
+
+  .hero-subline {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin-bottom: var(--space-md);
+    max-width: 520px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: 100%;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-actions :global(.btn-gold),
+  .hero-actions .btn-outline {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  .hero-btn-designs {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Stats row */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    border-top: 1px solid var(--color-border-light);
+    padding-top: var(--space-md);
+    width: 100%;
+    max-width: 580px;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-number {
+    font-family: var(--font-heading);
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #B8860B;
+    background: linear-gradient(135deg, #B8860B 0%, #8A6000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    line-height: 1.3;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  /* Floating pill */
+  .hero-atmosphere-badge {
+    display: none;
+  }
+
+  @media (min-width: 480px) {
+    .hero-actions {
+      flex-direction: row;
+      width: auto;
+    }
+
+    .hero-actions :global(.btn-gold),
+    .hero-actions .btn-outline {
+      width: auto;
+    }
+  }
+
+  @media (min-width: 860px) {
+    .hero-section {
+      padding-top: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+      min-height: 580px;
+    }
+
+    .hero-stats {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .hero-atmosphere-badge {
+      display: inline-flex;
+      position: absolute;
+      right: var(--space-md);
+      bottom: 0;
+      align-items: center;
+      gap: 8px;
+      background: rgba(30, 15, 8, 0.75);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: var(--shadow-md);
+    }
+
+    .pulse-indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--color-gold);
+      animation: pulse 2s infinite;
+    }
+
+    .badge-text {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #FDFBF7;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.9); }
+  }
+</style>

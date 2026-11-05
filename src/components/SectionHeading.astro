@@ -1,0 +1,56 @@
+---
+interface Props {
+  title: string;
+  eyebrow?: string;
+  description?: string;
+  centered?: boolean;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  centered = true,
+  class: className = '',
+} = Astro.props;
+---
+
+<div class={`section-heading ${centered ? 'section-heading--centered' : ''} ${className}`.trim()}>
+  <h2 class="title">
+    <span class="heading-pill">{title}</span>
+  </h2>
+  {description && <p class="description">{description}</p>}
+</div>
+
+<style>
+  .section-heading {
+    margin-bottom: var(--space-md);
+    max-width: 780px;
+  }
+
+  .section-heading--centered {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-heading--centered .title {
+    justify-content: center;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+    line-height: 1.25;
+  }
+
+  .description {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+    margin: var(--space-xs) 0 0 0;
+  }
+</style>
+

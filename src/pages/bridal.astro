@@ -1,0 +1,510 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import FAQList from '../components/FAQList.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+interface BridalPackage {
+  title: string;
+  badge?: string;
+  price: string;
+  coverage: string;
+  artists: string;
+  duration: string;
+  inclusions: string[];
+  featured?: boolean;
+}
+
+const bridalPackages: BridalPackage[] = [
+  {
+    title: 'Classic Bridal Suite',
+    price: 'Starting from ₹3,500',
+    coverage: 'Hands up to mid-forearm (both sides), feet up to ankles',
+    artists: 'Lead artist & artisan assistant',
+    duration: '3.5 – 4.5 hours',
+    inclusions: [
+      'Pure Rajasthani Sojat natural henna',
+      'Traditional floral, mandala & peacock motifs',
+      'Natural lemon-sugar sealant formula',
+      'Home & venue service across Kota',
+    ],
+  },
+  {
+    title: 'Signature Royal Bridal Suite',
+    badge: 'Most Popular',
+    featured: true,
+    price: 'Starting from ₹5,500',
+    coverage: 'Hands up to elbows (heavy jaal work), feet up to mid-calf',
+    artists: 'Lead artist & artisan assistant',
+    duration: '5 – 6.5 hours',
+    inclusions: [
+      'Custom Dulha-Dulhan & portrait motifs',
+      'Personalized wedding date & hastamelap elements',
+      'Clove-steam natural stain guidance kit',
+      'Advance consultation for motif selection',
+      'Priority schedule on your mehendi day',
+    ],
+  },
+  {
+    title: 'Imperial Storytelling Suite',
+    badge: 'Bespoke Luxury',
+    price: 'Custom quote on WhatsApp',
+    coverage: 'Dense intricate coverage past elbows, feet up to knees',
+    artists: 'Lead artist & senior artisans',
+    duration: '7+ hours unhurried pacing',
+    inclusions: [
+      'Complete personalized love story & baraat sequence',
+      'Bespoke Sanskrit wedding vows & shloka details',
+      'Organic aftercare balm & stain guarantee',
+      'Advance consultation for motif customization',
+      'Available for Kota & outstation destination weddings',
+    ],
+  },
+];
+
+
+
+const bridalFaqs = [
+  {
+    question: 'How early should a bridal booking be made?',
+    answer: 'Ideally 2–4 weeks before the wedding. During peak wedding season in Kota, earlier is recommended — message on WhatsApp to check availability.',
+  },
+  {
+    question: 'Is an advance consultation available?',
+    answer: 'Yes. An advance consultation can be arranged before the wedding to discuss motifs, coverage and timing on WhatsApp.',
+  },
+  {
+    question: 'Do you travel outside Kota for weddings?',
+    answer: 'Yes, on request. Outstation wedding bookings, travel logistics and package details are discussed directly on WhatsApp.',
+  },
+];
+---
+
+<BaseLayout
+  title="Bridal Mehendi Artist in Kota | Natural Mehendi"
+  description="Shagun brings 30 years of bridal mehendi experience in Kota. Pure natural mehendi, custom bridal packages for hands and feet with transparent pricing."
+>
+  <!-- Bridal Hero (Styled identically to Home Page Full-Bleed Hero) -->
+  <header class="bridal-hero-section" aria-label="Bridal Artistry Introduction">
+    <!-- 1. Full-Bleed Background Photography Layer -->
+    <div class="bridal-hero-bg-media" aria-hidden="true">
+      <img
+        src="/bridal-hero-bg.jpg"
+        alt="Handcrafted bridal mehendi artistry on hands and feet by Shagun in Kota"
+        class="bridal-hero-bg-img"
+        loading="eager"
+        fetchpriority="high"
+        width="1376"
+        height="768"
+      />
+    </div>
+
+    <!-- 2. Protective Gradient Overlay -->
+    <div class="bridal-hero-bg-overlay" aria-hidden="true"></div>
+
+    <!-- 3. Foreground Content -->
+    <div class="container bridal-hero-container">
+      <div class="bridal-hero-content">
+        <h1 class="bridal-hero-headline">Bridal mehendi, crafted with reverence</h1>
+
+        <div class="bridal-hero-actions">
+          <WhatsAppButton context="bridal" label="Book" />
+          <a href="#bridal-packages" class="btn-outline bridal-btn-packages">
+            Compare Packages
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Clear Bridal Package Comparisons -->
+  <section class="section section--surface" id="bridal-packages">
+    <div class="container">
+      <SectionHeading
+        title="Curated Bridal Package Comparisons"
+      />
+
+      <div class="packages-grid">
+        {bridalPackages.map((pkg) => (
+          <article class:list={['package-card', { 'package-card--featured': pkg.featured }]}>
+            {pkg.badge && (
+              <div class="package-badge-top">
+                <span>{pkg.badge}</span>
+              </div>
+            )}
+
+            <div class="package-header">
+              <h2 class="package-title">{pkg.title}</h2>
+              <div class="package-price-wrap">
+                <span class="package-price">{pkg.price}</span>
+                <span class="price-hint">Indicative price · confirmed on WhatsApp</span>
+              </div>
+            </div>
+
+            <div class="package-inclusions">
+              <p class="inclusions-heading">Package Inclusions:</p>
+              <ul class="inclusions-list">
+                {pkg.inclusions.map((inc) => (
+                  <li class="inclusion-bullet">
+                    <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>{inc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="package-cta-wrap">
+              <WhatsAppButton
+                context="bridal"
+                label="Book"
+                class="package-cta-btn"
+              />
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Bridal Gallery -->
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        title="Handcrafted Bridal Motifs"
+      />
+      <GalleryGrid category="Bridal" showFilter={false} />
+    </div>
+  </section>
+
+  <!-- Bridal FAQs -->
+  <section class="section section--surface">
+    <div class="container">
+      <FAQList items={bridalFaqs} title="Bridal Mehendi FAQs" />
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Mobile-first base styles */
+  .section--surface {
+    background-color: var(--color-surface);
+  }
+
+  /* Bridal Hero Section (Matching Home Page Full-Bleed Aesthetic) */
+  .bridal-hero-section {
+    position: relative;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
+    overflow: hidden;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg);
+  }
+
+  .bridal-hero-bg-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .bridal-hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 80% center;
+    transform: scale(1.02);
+  }
+
+  /* Protective Gradient Overlay */
+  .bridal-hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(253, 251, 247, 0.96) 0%,
+      rgba(253, 251, 247, 0.92) 58%,
+      rgba(253, 251, 247, 0.6) 80%,
+      rgba(253, 251, 247, 0.25) 100%
+    );
+  }
+
+  @media (min-width: 860px) {
+    .bridal-hero-bg-overlay {
+      background: linear-gradient(
+        90deg,
+        rgba(253, 251, 247, 0.98) 0%,
+        rgba(253, 251, 247, 0.95) 44%,
+        rgba(253, 251, 247, 0.72) 62%,
+        rgba(253, 251, 247, 0.22) 85%,
+        rgba(253, 251, 247, 0.08) 100%
+      );
+    }
+  }
+
+  .bridal-hero-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .bridal-hero-content {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bridal-hero-headline {
+    font-family: var(--font-heading);
+    font-size: clamp(2.1rem, 6vw + 0.5rem, 3.6rem);
+    color: var(--color-text);
+    line-height: 1.15;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.01em;
+  }
+
+  .bridal-hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .bridal-hero-actions :global(.btn-gold),
+  .bridal-hero-actions .btn-outline {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  .bridal-btn-packages {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+  }
+
+  @media (min-width: 480px) {
+    .bridal-hero-actions {
+      flex-direction: row;
+      width: auto;
+    }
+
+    .bridal-hero-actions :global(.btn-gold),
+    .bridal-hero-actions .btn-outline {
+      width: auto;
+    }
+  }
+
+  @media (min-width: 860px) {
+    .bridal-hero-section {
+      padding-top: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+      min-height: 520px;
+    }
+  }
+
+  /* Bridal Package Comparison Cards */
+  .packages-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .package-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .package-card:hover {
+    border-color: var(--color-maroon);
+    box-shadow: var(--shadow-md);
+  }
+
+  .package-card--featured {
+    border: 2px solid var(--color-maroon);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-maroon-light) 100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .package-badge-top {
+    position: absolute;
+    top: -12px;
+    left: var(--space-md);
+    background-color: var(--color-maroon);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 12px;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .package-header {
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .package-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .package-price-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .package-price {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-maroon);
+  }
+
+  .price-hint {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--color-muted);
+  }
+
+  .package-inclusions {
+    margin-bottom: var(--space-md);
+    flex-grow: 1;
+  }
+
+  .inclusions-heading {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .inclusions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .inclusion-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    font-size: 0.88rem;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .check-icon {
+    flex-shrink: 0;
+    color: var(--color-maroon);
+    margin-top: 2px;
+  }
+
+  .package-cta-wrap {
+    margin-top: auto;
+  }
+
+  .package-cta-wrap :global(.btn-gold) {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  /* Optional Add-Ons Grid */
+  .addons-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .addon-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .addon-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2xs);
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .addon-name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .addon-price {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-maroon);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+  }
+
+  .addon-desc {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+
+
+  @media (min-width: 960px) {
+    .packages-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+  }
+
+
+</style>

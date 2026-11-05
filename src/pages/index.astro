@@ -1,0 +1,347 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { ROUTES } from '../lib/constants';
+
+const artForms = [
+  {
+    name: 'Arabic',
+    slug: 'arabic',
+    badge: 'Flowing & Modern',
+    image: '/artforms/arabic.jpg',
+    description: 'Graceful diagonal floral vines, bold shaded leaves, and spacious negative skin composition.',
+    motifs: ['Floral Bel', 'Leaf Vines', 'Negative Space'],
+  },
+  {
+    name: 'Indo-Arabic',
+    slug: 'indo-arabic',
+    badge: 'Popular Fusion',
+    image: '/artforms/indo-arabic.jpg',
+    description: 'Seamless synthesis of bold Arabic silhouettes filled with intricate Indian shading and fine lace jaali.',
+    motifs: ['Fusion Bel', 'Paisley Vines', 'Jaali Fillers'],
+  },
+  {
+    name: 'Rajasthani',
+    slug: 'rajasthani',
+    badge: 'Heritage Classic',
+    image: '/artforms/rajasthani.jpg',
+    description: 'Intensely detailed Marwari heritage art with royal palace jharokhas, majestic peacocks, and sacred kalash.',
+    motifs: ['Jharokha Arches', 'Peacocks', 'Royal Elephants'],
+  },
+  {
+    name: 'Figure & Portrait Styles',
+    slug: 'figures',
+    badge: 'Signature Bridal',
+    image: '/figure/figure1.jpeg',
+    description: 'Hyper-detailed miniature hand-drawn portraits of Dulha-Dulhan, Radha-Krishna, and ceremonial wedding processions.',
+    motifs: ['Dulha-Dulhan', 'Radha-Krishna', 'Baraat Scenes'],
+  },
+];
+---
+
+<BaseLayout
+  title="Bridal & Festival Mehendi Artist in Kota"
+  description="Shagun is a premier mehendi service in Kota with 30 years of experience. Specialising in natural bridal mehendi, festive patterns, and home or venue visits."
+>
+  <Hero />
+
+  <!-- Why Choose Shagun: 5 Trust Pillars -->
+  <section class="section">
+    <div class="container">
+      <WhyChooseUs />
+    </div>
+  </section>
+
+  <!-- 1. Inspiration: Signature Art Form Categories -->
+  <section class="section section--surface" id="inspiration">
+    <div class="container">
+      <SectionHeading
+        title="Handcrafted Bridal & Festive Artistry"
+      />
+
+      <div class="artform-grid">
+        {artForms.map((form) => (
+          <a
+            href={`/gallery#${form.slug}`}
+            class="artform-card"
+            aria-label={`Explore ${form.name} mehendi gallery`}
+          >
+            <div class="artform-img-box">
+              <img
+                src={form.image}
+                alt={`${form.name} mehendi design handcrafted in Kota`}
+                class="artform-img"
+                loading="lazy"
+                width="600"
+                height="450"
+              />
+              <span class="artform-badge">{form.badge}</span>
+              <div class="artform-hover-cue" aria-hidden="true">
+                <span>View Gallery</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <div class="artform-content">
+              <div class="artform-header">
+                <h3 class="artform-title">{form.name}</h3>
+                <span class="artform-arrow-pill" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </div>
+              <p class="artform-desc">{form.description}</p>
+              <div class="artform-motifs">
+                {form.motifs.map((motif) => (
+                  <span class="motif-pill">{motif}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="view-all-gallery">
+        <a href={ROUTES.gallery} class="btn-gold">
+          Explore Full Gallery & Motifs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Services & Pricing: Core Packages -->
+  <section class="section" id="services">
+    <div class="container">
+      <SectionHeading
+        title="Mehendi Packages for Every Occasion"
+      />
+      <ServiceCards limit={3} />
+      <div class="view-all-services">
+        <a href={ROUTES.services} class="btn-outline">
+          View All Services & Indicative Rates
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Simple 3-Step Process -->
+  <section class="section section--surface" id="process">
+    <div class="container">
+      <ProcessSteps />
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .section--surface {
+    background-color: var(--color-surface);
+  }
+
+  /* Art Forms Grid */
+  .artform-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  @media (min-width: 600px) {
+    .artform-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .artform-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .artform-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    position: relative;
+  }
+
+  .artform-card:hover,
+  .artform-card:focus-visible {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: 0 12px 30px rgba(184, 134, 11, 0.18);
+  }
+
+  .artform-img-box {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--color-surface);
+  }
+
+  .artform-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+
+  .artform-card:hover .artform-img,
+  .artform-card:focus-visible .artform-img {
+    transform: scale(1.06);
+  }
+
+  .artform-badge {
+    position: absolute;
+    top: var(--space-xs);
+    left: var(--space-xs);
+    background: rgba(22, 14, 10, 0.92);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .artform-hover-cue {
+    position: absolute;
+    bottom: var(--space-xs);
+    right: var(--space-xs);
+    background: var(--color-maroon);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .artform-card:hover .artform-hover-cue,
+  .artform-card:focus-visible .artform-hover-cue {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .artform-content {
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .artform-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .artform-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .artform-card:hover .artform-title,
+  .artform-card:focus-visible .artform-title {
+    color: var(--color-primary);
+  }
+
+  .artform-arrow-pill {
+    width: 26px;
+    height: 26px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(184, 134, 11, 0.1);
+    color: var(--color-primary);
+    flex-shrink: 0;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+  }
+
+  .artform-card:hover .artform-arrow-pill,
+  .artform-card:focus-visible .artform-arrow-pill {
+    transform: translateX(3px);
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .artform-desc {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin: 0 0 var(--space-xs) 0;
+    flex-grow: 1;
+  }
+
+  .artform-motifs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: auto;
+  }
+
+  .motif-pill {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    background: rgba(184, 134, 11, 0.08);
+    color: var(--color-text);
+    border: 1px solid rgba(184, 134, 11, 0.18);
+  }
+
+  .view-all-services,
+  .view-all-gallery {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-md);
+  }
+
+  .view-all-services a,
+  .view-all-gallery a {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .view-all-services a,
+    .view-all-gallery a {
+      width: auto;
+    }
+  }
+</style>
